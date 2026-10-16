@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 py-20 text-center sm:px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6">
+      Create & Share Your Digital Visiting Card
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-600 mb-8">
+      Quickly make a professional digital card, share it online, and impress your clients or contacts.
+    </p>
+    <a href="{% url 'users:register_user' %}" class="inline-block px-8 py-3 bg-black text-white font-semibold rounded hover:bg-gray-800 transition">
+      Get Started
+    </a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
+  <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Why Use Our App?</h2>
+  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Feature 1 -->
+    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <div class="text-4xl mb-4">💼</div>
+      <h3 class="text-xl font-semibold mb-2">Professional Digital Cards</h3>
+      <p class="text-gray-600 text-sm">
+        Create visually appealing cards that showcase your name, contact info, and company details.
+      </p>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <div class="text-4xl mb-4">🌐</div>
+      <h3 class="text-xl font-semibold mb-2">Share Anywhere</h3>
+      <p class="text-gray-600 text-sm">
+        Share your card link through email, social media, or QR code. No app download required for others.
+      </p>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <div class="text-4xl mb-4">📱</div>
+      <h3 class="text-xl font-semibold mb-2">Mobile Friendly</h3>
+      <p class="text-gray-600 text-sm">
+        Fully responsive design ensures your card looks perfect on phones, tablets, and desktops.
+      </p>
+    </div>
+
+    <!-- Feature 4 -->
+    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <div class="text-4xl mb-4">🔗</div>
+      <h3 class="text-xl font-semibold mb-2">QR Codes & Links</h3>
+      <p class="text-gray-600 text-sm">
+        Each card generates a unique QR code for easy scanning and sharing, making networking simple.
+      </p>
+    </div>
+
+    <!-- Feature 5 -->
+    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <div class="text-4xl mb-4">🖼️</div>
+      <h3 class="text-xl font-semibold mb-2">Customizable Design</h3>
+      <p class="text-gray-600 text-sm">
+        Add your profile photo, cover image, and personal branding to make your card stand out.
+      </p>
+    </div>
+
+    <!-- Feature 6 -->
+    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+      <div class="text-4xl mb-4">🔒</div>
+      <h3 class="text-xl font-semibold mb-2">Secure & Private</h3>
+      <p class="text-gray-600 text-sm">
+        Your data is safe. Only you control what information is visible on your digital card.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-black py-20">
+  <div class="max-w-7xl mx-auto px-4 text-center sm:px-6 lg:px-8">
+    <h2 class="text-xl sm:text-3xl font-bold text-white mb-6">Ready to Create Your Card?</h2>
+    <a href="{% url 'users:register_user' %}" class="inline-block px-8 py-3 bg-white text-black font-semibold rounded hover:bg-gray-200 transition">
+      Sign Up Now
+    </a>
+  </div>
+</section>
+{% endblock %}

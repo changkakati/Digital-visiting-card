@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form method="POST" enctype="multipart/form-data" class="space-y-6">
+    {% csrf_token %}
+
+    <!-- Name -->
+    <div>
+      <label for="name" class="block text-sm text-gray-700 mb-1">Name</label>
+      <input type="text" name="name" id="name" required
+             class="w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+             value="{{ form.instance.name|default_if_none:'' }}" />
+    </div>
+
+    <!-- Designation -->
+    <div>
+      <label for="designation" class="block text-sm text-gray-700 mb-1">Designation</label>
+      <input type="text" name="designation" id="designation"
+             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+             value="{{ form.instance.designation|default_if_none:'' }}" />
+    </div>
+
+    <!-- Company -->
+    <div>
+      <label for="company" class="block text-sm text-gray-700 mb-1">Company</label>
+      <input type="text" name="company" id="company"
+             class="w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+             value="{{ form.instance.company|default_if_none:'' }}" />
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <label for="phone" class="block text-sm text-gray-700 mb-1">Phone</label>
+      <input type="text" name="phone" id="phone"
+             class="w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+             value="{{ form.instance.phone|default_if_none:'' }}" />
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-sm text-gray-700 mb-1">Email</label>
+      <input type="email" name="email" id="email"
+             class="w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+             value="{{ form.instance.email|default_if_none:'' }}" />
+    </div>
+
+    <!-- Address -->
+    <div>
+      <label for="address" class="block text-sm text-gray-700 mb-1">Address</label>
+      <textarea name="address" id="address" rows="2"
+                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">{{ form.instance.address|default_if_none:'' }}</textarea>
+    </div>
+
+    <!-- Website -->
+    <div>
+      <label for="website" class="block text-sm text-gray-700 mb-1">Website</label>
+      <input type="url" name="website" id="website" placeholder="https://example.com"
+             class="w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+             value="{{ form.instance.website|default_if_none:'' }}" />
+    </div>
+
+    <!-- Photo -->
+    <div>
+      <label for="photo" class="block text-sm text-gray-700 mb-1">Photo</label>
+      {% if form.instance.photo %}
+        <img src="{{ form.instance.photo.url }}" class="h-24 w-24 rounded-full mb-2 border object-cover" alt="Current Photo">
+        <div class="flex items-center space-x-2 mb-2">
+          <input type="checkbox" name="remove_photo" id="remove_photo">
+          <label for="remove_photo" class="text-sm text-gray-600">Remove Photo</label>
+        </div>
+      {% endif %}
+      <input type="file" name="photo" id="photo" accept="image/*"
+             class="w-full mt-1 px-3 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500" />
+    </div>
+
+    <!-- Cover Photo -->
+    <div>
+      <label class="block text-sm mb-1 font-medium text-gray-700">Cover Photo</label>
+      {% if form.instance.cover_photo %}
+        <img src="{{ form.instance.cover_photo.url }}" class="h-32 w-full object-cover mb-2 border" alt="Current Cover">
+        <div class="flex items-center space-x-2 mb-2">
+          <input type="checkbox" name="remove_cover_photo" id="remove_cover_photo">
+          <label for="remove_cover_photo" class="text-sm text-gray-600">Remove Cover Photo</label>
+        </div>
+      {% endif %}
+      <input type="file" name="cover_photo" id="cover_photo" accept="image/*"
+             class="mt-1 block w-full border rounded-md p-2" />
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+      <a href="{% url 'cards:list_cards' %}" class="w-[30%] bg-slate-800 text-center text-white py-2 rounded hover:bg-slate-700">Cancel</a>
+      <button type="submit" class="w-[30%] bg-slate-800 text-white py-2 rounded hover:bg-slate-700">Save</button>
+    </div>
+  </form>
+{% endblock %}

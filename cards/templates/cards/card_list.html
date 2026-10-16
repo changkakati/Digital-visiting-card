@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <a href="{% url 'cards:create_card' %}"
+     class="w-full inline-block text-center mb-5 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 active:bg-gray-900 transition">
+    Create New Card
+  </a>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {% for card in cards %}
+      <div class="relative border overflow-hidden shadow hover:shadow-lg transition">
+        <!-- Cover Photo -->
+        <div class="h-[150px] sm:h-[160px] md:h-[200px] relative">
+          {% if card.cover_photo %}
+            <img src="{{ card.cover_photo.url }}" alt="Cover Photo"
+                 class="w-full h-full object-cover">
+          {% else %}
+            <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
+              No Cover Photo
+            </div>
+          {% endif %}
+
+          <!-- Profile Photo -->
+          {% if card.photo %}
+            <div class="absolute left-1/2 -bottom-10 transform -translate-x-1/2">
+              <img src="{{ card.photo.url }}"
+                   alt="Profile Photo"
+                   class="h-[100px] w-[100px] rounded-full border-2 border-white object-cover shadow">
+            </div>
+
+          {% else %}
+            <div class="absolute left-1/2 -bottom-10 transform -translate-x-1/2">
+      <div
+        class="h-[100px] w-[100px] rounded-full border-2 border-white shadow
+               flex items-center justify-center bg-gray-100 text-gray-400 text-xs font-medium">
+        No Photo
+      </div>
+    </div>
+
+          {% endif %}
+        </div>
+
+        <!-- Card Info -->
+        <div class="pt-12 pb-4 px-4 text-center">
+          <a href="{% url 'cards:card_detail' slug=card.slug %}"
+             class="font-semibold text-gray-800 block">
+            {{ card.name }}
+          </a>
+          {% if card.designation %}
+            <p class="text-xs text-gray-500">{{ card.designation }} @{{ card.company }}</p>
+          {% endif %}
+          
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-center gap-3 pb-4">
+          <a href="{% url 'cards:edit_card' card.pk %}"
+             class="px-4 py-1 text-sm bg-black text-white rounded  transition">
+            Edit card
+          </a>
+          <form action="{% url 'cards:delete_card' card.pk %}" method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this card?');">
+            {% csrf_token %}
+            <button type="submit"
+                    class="px-4 py-1 text-sm bg-red-600 text-white rounded transition">
+              Delete card
+            </button>
+          </form>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-gray-500">No cards yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

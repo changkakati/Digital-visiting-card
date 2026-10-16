@@ -1,0 +1,26 @@
+/* Change the header and top bar background to black */
+#header, #header .module, .dashboard-module, .app-module, #branding, .breadcrumbs {
+    background-color: #000 !important;
+}
+
+/* Change the text color of the header and links to white */
+#header h1, #header a, #header h1 a, #branding h1 a, .breadcrumbs a {
+    color: #fff !important;
+}
+
+/* Change the main buttons (like "Save", "Add") to black/dark */
+input[type="submit"], .submit-row input, .default, .deletelink {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+/* Optional: Change hover color for buttons */
+input[type="submit"]:hover, .submit-row input:hover, .default:hover, .deletelink:hover {
+    background-color: #222 !important;
+    color: #fff !important;
+}
+
+/* Change selected row highlight */
+tr.selected {
+    background-color: #111 !important;
+}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="w-full border rounded-md shadow-sm bg-white">
+    <!-- Cover Photo -->
+    <div>
+      {% if card.cover_photo %}
+        <img src="{{ card.cover_photo.url }}" alt="{{ card.name }}" class="w-full h-[150px] sm:h-[200px] object-cover border-b mb-4" />
+      {% else %}
+        <div class="w-full h-[150px] sm:h-[200px] bg-gray-100 flex items-center justify-center text-gray-400 text-sm border-b mb-4">No Cover Photo</div>
+      {% endif %}
+    </div>
+
+    <!-- Profile Photo -->
+    <div class="relative">
+      {% if card.photo %}
+        <img src="{{ card.photo.url }}" alt="{{ card.name }}" class="object-cover w-32 h-32 rounded-full mx-auto border-4 border-white -mt-20 shadow-md" />
+      {% else %}
+        <div class="w-32 h-32 rounded-full mx-auto border-4 border-white -mt-20 shadow-md flex items-center justify-center bg-gray-100 text-gray-400 text-sm">No Photo</div>
+      {% endif %}
+    </div>
+
+    <!-- Card Content -->
+    <div class="mt-4 px-5 pb-5">
+      <h1 class="text-xl text-center text-gray-900 font-semibold">{{ card.name }}</h1>
+
+      <p class="text-gray-600 text-xs text-center mt-1">
+        {{ card.designation }}
+        {% if card.company %}
+          <span class="text-gray-500">@{{ card.company }}</span>
+        {% endif %}
+      </p>
+
+      <!-- Contact Info -->
+      <div class="mt-5 space-y-1 pt-4 border-t text-sm text-gray-700">
+        <h2 class="font-semibold text-gray-800 text-base mb-2">📱 Contact</h2>
+
+        {% if card.phone %}
+          <p>
+            📞 <a href="tel:{{ card.phone }}" class="font-medium active:underline">{{ card.phone }}</a>
+          </p>
+        {% endif %}
+        {% if card.email %}
+          <p>
+            ✉️ <a href="mailto:{{ card.email }}" class="font-medium active:underline">{{ card.email }}</a>
+          </p>
+        {% endif %}
+        {% if card.website %}
+          <p>
+            🌐 <a href="{{ card.website }}" target="_blank" class="text-blue-600 hover:underline break-all">{{ card.website }}</a>
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Address -->
+      {% if card.address %}
+        <div class="mt-5 border-t pt-4 text-gray-700">
+          <h2 class="font-semibold text-gray-800 mb-1">📍 Address</h2>
+          <p class="text-sm whitespace-pre-line">{{ card.address }}</p>
+        </div>
+      {% endif %}
+
+      <!-- Share & QR -->
+      <div class="mt-5 border-t pt-4">
+        <h2 class="font-semibold text-gray-800 mb-2">🔗 Share this card</h2>
+
+        <div class="flex items-center justify-between bg-gray-50 border rounded-md p-3 text-sm text-gray-700">
+          <span id="shareLink" class="break-all">{{ request.build_absolute_uri|default:card.get_absolute_url }}</span>
+          {% comment %} <button type="button" id="copyBtn" class="text-center px-3 py-2 bg-slate-800 text-white rounded transition text-xs w-16">Copy</button> {% endcomment %}
+          <button type="button" id="copyBtn" class="text-center px-3 py-2 bg-slate-800 text-white rounded transition text-xs w-16">Copy</button>
+        </div>
+
+        {% if card.qr_code %}
+          <div class="flex flex-col items-center mt-6">
+            <img src="{{ card.qr_code.url }}" alt="QR Code" class="w-[70%] sm:w-[50%] border border-gray-200 rounded shadow-sm" />
+            <a href="{% url 'cards:download_qr' slug=card.slug %}" class="mt-4 inline-block px-5 py-2 bg-slate-800 text-white text-sm font-medium rounded shadow hover:bg-blue-700 transition">Download QR</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Copy Button Script -->
+  <script>
+    $(document).ready(function () {
+      function copyLink(event) {
+        event.preventDefault() // prevent form/button default actions
+        const linkText = $('#shareLink').text().trim()
+    
+        if (!navigator.clipboard) {
+          // fallback for older browsers
+          const textarea = document.createElement('textarea')
+          textarea.value = linkText
+          document.body.appendChild(textarea)
+          textarea.select()
+          document.execCommand('copy')
+          document.body.removeChild(textarea)
+        } else {
+          navigator.clipboard.writeText(linkText).catch((err) => console.error('Copy failed:', err))
+        }
+    
+        $('#copyBtn').text('Copied!').removeClass('bg-slate-800').addClass('bg-slate-700')
+    
+        setTimeout(function () {
+          $('#copyBtn').text('Copy').removeClass('bg-slate-700').addClass('bg-slate-800')
+        }, 1500)
+      }
+    
+      $('#copyBtn').on('click touchstart', copyLink)
+    })
+  </script>
+  
+{% endblock %}

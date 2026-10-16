@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}"> {% endcomment %}
+{% endblock %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Admin panel</a></h1>
+{% endblock %}
