@@ -5,3 +5,5 @@ whitenoise
 Pillow
 qrcode[pil]
 xhtml2pdf
+django-libsql-backend
+django-storages[s3]

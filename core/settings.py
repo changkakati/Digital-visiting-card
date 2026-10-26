@@ -28,7 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-*l4bzotmv^rhyr@a9=z$59b5-5da@(uyoo!9^owmcf0&)3#*oj"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "cards",
     "users",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -84,13 +86,50 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "libsql.db.backends.sqlite3",
+#         "NAME": "libsql://digitalvisitingcarddb-changkakati.aws-ap-south-1.turso.io?authToken=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3OTMwNDUyNTgsImlkIjoiMDFhMTc5ZDEtMjUwMS03ZjQzLTgzNGYtNDg4OTI3ZGUxMDM5Iiwia2lkIjoiQnhCV2E0SjZHNERjbzZJb0Q3dXozaGY2STlSTUMwbGJ5UGNpdVQwTFRlWSIsInJpZCI6ImJjNzYyODNlLTBjMTYtNGQ2OS05MTcxLWQ4OWQzNGE1Y2QwNiJ9.OiezFZxXwrySQkNKtewjmji9tZAwCMk6GMeWCCSdIma8ic5DU8AHu1hXxqlDtsQ5PSgl4H7a6nQCIwxUp_R-DA",
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django_libsql",
+        "NAME": "libsql://digitalvisitingcarddb-changkakati.aws-ap-south-1.turso.io",
+        "AUTH_TOKEN": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3OTMwNDUyNTgsImlkIjoiMDFhMTc5ZDEtMjUwMS03ZjQzLTgzNGYtNDg4OTI3ZGUxMDM5Iiwia2lkIjoiQnhCV2E0SjZHNERjbzZJb0Q3dXozaGY2STlSTUMwbGJ5UGNpdVQwTFRlWSIsInJpZCI6ImJjNzYyODNlLTBjMTYtNGQ2OS05MTcxLWQ4OWQzNGE1Y2QwNiJ9.OiezFZxXwrySQkNKtewjmji9tZAwCMk6GMeWCCSdIma8ic5DU8AHu1hXxqlDtsQ5PSgl4H7a6nQCIwxUp_R-DA",
+        "OPTIONS": {
+            "timeout": 30,
+        },
     }
 }
 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "bucket_name": "digital-visiting-card-storage",
+            "endpoint_url": "https://f88451c932e08c9ccd40f97a56ed7055.r2.cloudflarestorage.com",
+            "region_name": "auto",
+            "access_key": "f8dc81591b7bbd42fadab853c54ef571",
+            "secret_key": "d0584ba2a0d7ae06ed5c0ebbd3a8520784893936c6951851348272bdfab01155",
+            "signature_version": "s3v4",
+            "default_acl": None,
+            "file_overwrite": False,
+            "custom_domain": "pub-0956848511394bb6b58aa9fee385b859.r2.dev",
+            "querystring_auth": False,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
