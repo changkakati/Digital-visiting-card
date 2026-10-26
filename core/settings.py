@@ -37,6 +37,8 @@ ALLOWED_HOSTS = [
     ".onrender.com",
 ]
 
+SITE_URL=https://digital-visiting-card-hc81.onrender.com
+
 # Application definition
 
 INSTALLED_APPS = [
